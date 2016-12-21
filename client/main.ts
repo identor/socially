@@ -1,3 +1,4 @@
+import 'core-js/shim';
 import 'angular2-meteor-polyfills';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
