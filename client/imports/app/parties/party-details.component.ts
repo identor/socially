@@ -44,7 +44,10 @@ export class PartyDetailsComponent implements OnInit, CanActivate {
         }
 
         this.partySub = MeteorObservable.subscribe('party', this.partyId).subscribe(() => {
-          this.party = Parties.findOne(this.partyId);
+          MeteorObservable.autorun().subscribe(() => {
+            this.party = Parties.findOne(this.partyId);
+            this.getUsers(this.party);
+          });
         });
       });
 
@@ -87,4 +90,32 @@ export class PartyDetailsComponent implements OnInit, CanActivate {
     const party = Parties.findOne(this.partyId);
     return (party && party.owner == Meteor.userId());
   }
+
+  invite(user: Meteor.User) {
+    MeteorObservable.call('invite', this.party._id, user._id).subscribe(() => {
+      alert('User successfully invited.');
+    }, (error) => {
+      alert(`Failed to invite due to ${error}`);
+    });
+  }
+
+  getUsers(party: Party) {
+    if (party) {
+      this.users = Users.find({
+        _id: {
+          $nin: party.invited || [],
+          $ne: Meteor.userId()
+        }
+      }).zone();
+    }
+  }
+
+  reply(rsvp: string) {
+    MeteorObservable.call('reply', this.party._id, rsvp).subscribe(() => {
+      alert('You successfully replied.');
+    }, (error) => {
+      alert(`Failed to reply due to ${error}`);
+    });
+  }
+
 }

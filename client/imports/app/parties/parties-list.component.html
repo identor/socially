@@ -16,11 +16,19 @@
 
   <ul>
     <li *ngFor="let party of parties | async">
-      {{party._id.str}}
-      <a [routerLink]="['/party', party._id.toString()]">{{party.name}}</a>
-      <p>{{party.description}}</p>
-      <p>{{party.location}}</p>
-      <button (click)="removeParty(party)">X</button>
+      <div *ngIf="party">
+        {{party._id.str}}
+        <a [routerLink]="['/party', party._id.toString()]">{{party.name}}</a>
+        <p>{{party.description}}</p>
+        <p>{{party.location}}</p>
+        <button (click)="removeParty(party)">X</button>
+      </div>
+      <div>
+        Who is coming:
+        Yes - {{party | rsvp:'yes'}}
+        Maybe - {{party | rsvp:'maybe'}}
+        No - {{party | rsvp:'no'}}
+      </div>
     </li>
   </ul>
 

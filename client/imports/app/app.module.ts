@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { PARTIES_DECLARATIONS } from './parties';
 import { ROUTES_PROVIDERS } from './app.routes';
+import { SHARED_DECLARATIONS } from './shared';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { ROUTES_PROVIDERS } from './app.routes';
   ],
   declarations: [
     AppComponent,
-    ...PARTIES_DECLARATIONS
+    ...PARTIES_DECLARATIONS,
+    ...SHARED_DECLARATIONS
   ],
   bootstrap: [
     AppComponent
