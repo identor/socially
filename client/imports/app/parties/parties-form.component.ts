@@ -7,10 +7,12 @@ import { Parties } from '../../../../both/collections/parties.collection';
 import { Party } from '../../../../both/models/party.model';
 
 import template from './parties-form.component.html';
+import style from './parties-form.component.scss';
 
 @Component({
   selector: 'parties-form',
-  template
+  template,
+  styles: [ style ]
 })
 @InjectUser('user')
 export class PartiesFormComponent implements OnInit {

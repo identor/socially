@@ -1,32 +1,51 @@
-<form *ngIf="party" (submit)="saveParty()">
-  <label>Name</label>
-  <input type="text" [(ngModel)]="party.name" name="name">
+<div class="party-details-container" *ngIf="party">
+  <div class="row">
+    <div class="party-details">
+      <md-card>
+        <button md-mini-fab (click)="goBack()"><md-icon>arrow_back</md-icon></button>
+        <h2>{{party.name}}</h2>
+        <form layout="column" (submit)="saveParty()">
+          <label>Party Name: </label>
+          <md-input [disabled]="!isOwner" [(ngModel)]="party.name" name="name"></md-input>
+          <br />
 
-  <label>Description</label>
-  <input type="text" [(ngModel)]="party.description" name="description">
+          <label>Description</label>
+          <md-input [disabled]="!isOwner" [(ngModel)]="party.description" name="description">
 
-  <label>Location</label>
-  <input type="text" [(ngModel)]="party.location" name="location">
+          <label>Location</label>
+          <md-input [disabled]="!isOwner" [(ngModel)]="party.location" name="location">
 
-  <button type="submit">Save</button>
-  <a [routerLink]="['/']">Cancel</a>
-</form>
+          <md-checkbox [disabled]="!isOwner" [(checked)]="party.public" name="public" aria-label="Public">
+            Public party?
+          </md-checkbox>
 
-<p>Users to invite:</p>
-<ul>
-  <li *ngFor="let user of users | async">
-    <div>{{ user | displayName }}</div>
-    <div>{{user.emails[0].address}}</div>
-    <button (click)="invite(user)">Invite</button>
-  </li>
-</ul>
+          <div layout="row" layout-align="left">
+            <button [disabled]="!isOwner" type="submit" md-raised-button color="accent">Save</button>
+            <a [routerLink]="['/']" md-raised-button class="md-raised">Back</a>
+          </div>
+        </form>
+      </md-card>
+    </div>
 
-<div>
-  <h2>Reply to the invitation</h2>
-  <input type="button" value="I'm going!" (click)="reply('yes')">
-  <input type="button" value="Maybe" (click)="reply('maybe')">
-  <input type="button" value="No" (click)="reply('no')">
+    <div class="party-invites">
+      <md-card>
+        <h2>Invitations</h2>
+        <span [hidden]="!party.public">Public party, no need for invitations!</span>
+        <md-list>
+          <md-list-item *ngFor="let user of users | async">
+            <p md-line>{{ user | displayName }}</p>
+            <button (click)="invite(user)" md-button>Invite</button>
+          </md-list-item>
+        </md-list>
+      </md-card>
+    </div>
+
+    <div *ngIf="isInvited">
+      <h2>Reply to the invitation</h2>
+      <input type="button" value="I'm going!" (click)="reply('yes')">
+      <input type="button" value="Maybe" (click)="reply('maybe')">
+      <input type="button" value="No" (click)="reply('no')">
+    </div>
+  </div>
 </div>
-
-<button (click)="goBack()">Back</button>
 

@@ -2,6 +2,7 @@
 /// <reference types="meteor-typings" />
 /// <reference types="@types/underscore" />
 /// <reference types="@types/core-js" />
+/// <reference types="@types/hammerjs" />
 
 declare module '*.html' {
   const template: string;

@@ -1,3 +1,4 @@
+import 'hammerjs';
 import 'core-js/shim';
 import 'angular2-meteor-polyfills';
 

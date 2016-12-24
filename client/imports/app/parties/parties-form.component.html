@@ -1,16 +1,28 @@
-<div *ngIf="!user">Please, log in to change party</div>
-<form [formGroup]="addForm" (ngSubmit)="addParty()">
-  <label>Name</label>
-  <input type="text" formControlName="name">
-
-  <label>Description</label>
-  <input type="text" formControlName="description">
-
-  <label>Location</label>
-  <input type="text" formControlName="location">
-
-  <label>Public</label>
-  <input type="checkbox" formControlName="public">
-
-  <button type="submit">Add</button>
-</form>
+<div class="form-container">
+  <div class="container-background">
+    <div class="form-content">
+      <div class="form-center">
+        <h1>Your party is missing?</h1>
+        <h2>Add it now!</h2>
+      </div>
+      <div class="form-center">
+        <form [formGroup]="addForm" (ngSubmit)="addParty()">
+          <div class="form-inputs">
+            <md-input dividerColor="accent" formControlName="name" placeholder="Party name"></md-input>
+            <br>
+            <md-input dividerColor="accent" formControlName="description" placeholder="Party description"></md-input>
+            <br>
+            <md-input dividerColor="accent" formControlName="location" placeholder="Party location"></md-input>
+            <br>
+            <md-checkbox formControlName="public">Public party?</md-checkbox>
+            <br><br>
+            <button color="accent" md-raised-button type="submit">Add my party!</button>
+          </div>
+        </form>
+        <div *ngIf="!user">
+          Please, log in to change party
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
